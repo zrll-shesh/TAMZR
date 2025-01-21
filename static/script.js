@@ -1,21 +1,50 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('button');
+document.addEventListener("DOMContentLoaded", function () {
 
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Efek animasi sebelum alert muncul
-            button.style.transform = "scale(0.95)";
-            button.style.transition = "transform 0.2s ease-in-out";
+    const testimoniBtn = document.getElementById("testimoni-btn");
+    const testimoniContainer = document.getElementById("testimoni-container");
+    const testimoniMessage = document.getElementById("testimoni-message");
 
-            // Membalikkan efek setelah beberapa detik
-            setTimeout(() => {
-                button.style.transform = "scale(1)";
-            }, 200);
+    testimoniBtn.addEventListener("click", function () {
+        if (testimoniContainer.style.display === "none" || testimoniContainer.innerHTML === "") {
+            testimoniContainer.innerHTML = "";
 
-            // Menampilkan pesan
-            setTimeout(() => {
-                alert('Thank you for interacting with Tamzr Joki Tugas & Bimbel Online!');
-            }, 300);  // Memberi jeda setelah animasi
-        });
+            let img1 = document.createElement("img");
+            img1.src = "/static/images/testimoni1.jpeg";
+            img1.alt = "Testimoni 1";
+            img1.classList.add("testimoni-img");
+
+            let img2 = document.createElement("img");
+            img2.src = "/static/images/testimoni2.jpeg";
+            img2.alt = "Testimoni 2";
+            img2.classList.add("testimoni-img");
+
+            testimoniContainer.appendChild(img1);
+            testimoniContainer.appendChild(img2);
+
+            testimoniContainer.style.display = "flex";
+            testimoniBtn.textContent = "Tutup Testimoni";
+
+            typeText("Berikut adalah beberapa testimoni!");
+
+        } else {
+ 
+            testimoniContainer.style.display = "none";
+            testimoniBtn.textContent = "Tampilkan Testimoni";
+
+            typeText("Terima kasih telah melihat testimoni! 😊");
+        }
     });
+
+    function typeText(message) {
+        let i = 0;
+        testimoniMessage.innerHTML = ""; 
+        function typeWriter() {
+            if (i < message.length) {
+                testimoniMessage.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, 40);
+            }
+        }
+        typeWriter();
+    }
 });
